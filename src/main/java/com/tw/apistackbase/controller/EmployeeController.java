@@ -15,11 +15,14 @@ import java.util.stream.Collectors;
 public class EmployeeController {
 
     private final Logger log = Logger.getLogger(this.getClass().getName());
-   static List<Employee> employees = new ArrayList<>();
-    static {
-       Employee employee=new Employee(1,"dd",20,"man",30);
-        employees.add(employee);
-    }
+   static List<Employee> employees = new ArrayList<Employee>(){
+       Employee employee1=new Employee(1,"dd1",20,"man",30);
+       Employee employee2=new Employee(1,"dd2",20,"man",30);
+       Employee employee3=new Employee(1,"dd3",20,"man",30);
+       Employee employee4=new Employee(1,"dd4",20,"man",30);
+
+   };
+
 
     @GetMapping()
     public ResponseEntity getEmployee(@RequestParam(value = "page",required = false)String page,
@@ -29,8 +32,11 @@ public class EmployeeController {
         if(page!=null&&pageSize!=null){
             int page1 = Integer.valueOf(page);
             int pageSize1 = Integer.valueOf(pageSize);
-
-            for (int i = page1 * pageSize1 - pageSize1; i < page1 * pageSize1; i++) {
+            int length=page1 * pageSize1;
+            if (length > employees.size()) {
+                 length=employees.size();
+            }
+            for (int i = page1 * pageSize1 - pageSize1; i < length; i++) {
                 list.add(employees.get(i));
             }
             return ResponseEntity.ok().body(list);

@@ -126,4 +126,21 @@ public class ApiStackBaseApplicationTests {
 				.andExpect(status().isCreated());
 
 	}
+
+	@Test
+	public void deleteEmployeeTest()throws Exception {
+		Employee employee = new Employee(4, "d1d", 33, "man",100);
+		JSONObject jsonObject = new JSONObject(employee);
+
+//		this.mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON_UTF8).content(jsonObject.toString())).andExpect(status().isCreated());
+//		this.mockMvc.perform(post("/companies") .content(new ObjectMapper().writeValueAsString(company))
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.accept(MediaType.APPLICATION_JSON))
+//				.andExpect(status().isCreated());
+		this.mockMvc.perform(delete("/employees/4").content(jsonObject.toString())
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+	}
 }

@@ -20,8 +20,7 @@ import org.springframework.util.MultiValueMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -105,6 +104,23 @@ public class ApiStackBaseApplicationTests {
 //				.accept(MediaType.APPLICATION_JSON))
 //				.andExpect(status().isCreated());
 		this.mockMvc.perform(post("/employees") .content(jsonObject.toString())
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isCreated());
+
+	}
+
+	@Test
+	public void putEmployeeTest()throws Exception {
+		Employee employee = new Employee(4, "d1d", 33, "man",100);
+		JSONObject jsonObject = new JSONObject(employee);
+
+//		this.mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON_UTF8).content(jsonObject.toString())).andExpect(status().isCreated());
+//		this.mockMvc.perform(post("/companies") .content(new ObjectMapper().writeValueAsString(company))
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.accept(MediaType.APPLICATION_JSON))
+//				.andExpect(status().isCreated());
+		this.mockMvc.perform(put("/employees/4").content(jsonObject.toString())
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated());

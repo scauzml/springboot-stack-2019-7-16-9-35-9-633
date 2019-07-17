@@ -15,20 +15,21 @@ import java.util.stream.Collectors;
 public class EmployeeController {
 
     private final Logger log = Logger.getLogger(this.getClass().getName());
-   static List<Employee> employees = new ArrayList<Employee>(){
-       Employee employee1=new Employee(1,"dd1",20,"man",30);
-       Employee employee2=new Employee(1,"dd2",20,"man",30);
-       Employee employee3=new Employee(1,"dd3",20,"man",30);
-       Employee employee4=new Employee(1,"dd4",20,"man",30);
+   private List<Employee> employees = new ArrayList<Employee>();
 
-   };
-
-
+     public EmployeeController(){
+         employees.add(new Employee(1,"dd1",20,"man",30));
+         employees.add(new Employee(2,"dd1",20,"man",30));
+         employees.add(new Employee(3,"dd1",20,"man",30));
+         employees.add(new Employee(4,"dd1",20,"man",30));
+         employees.add(new Employee(5,"dd1",20,"flmale",30));
+     }
     @GetMapping()
     public ResponseEntity getEmployee(@RequestParam(value = "page",required = false)String page,
                                       @RequestParam(value = "pageSize",required = false)String pageSize,
                                       @RequestParam(value = "gender",required = false)String gender) {
         List<Employee> list = new ArrayList<>();
+        System.out.println(gender);
         if(page!=null&&pageSize!=null){
             int page1 = Integer.valueOf(page);
             int pageSize1 = Integer.valueOf(pageSize);
@@ -36,12 +37,12 @@ public class EmployeeController {
             if (length > employees.size()) {
                  length=employees.size();
             }
-            for (int i = page1 * pageSize1 - pageSize1; i < length; i++) {
+            for (int i = page1 * pageSize1 - pageSize1; i < 5; i++) {
                 list.add(employees.get(i));
             }
             return ResponseEntity.ok().body(list);
         } else if (gender != null) {
-            List<Employee> employeeList=employees.stream().filter(e->e.getGender()==gender).collect(Collectors.toList());
+            List<Employee> employeeList=employees.stream().filter(e-> e.getGender().equals(gender)).collect(Collectors.toList());
             return ResponseEntity.ok().body(employeeList);
         }
 

@@ -100,7 +100,11 @@ public class ApiStackBaseApplicationTests {
 		JSONObject jsonObject = new JSONObject(employee);
 
 //		this.mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON_UTF8).content(jsonObject.toString())).andExpect(status().isCreated());
-		this.mockMvc.perform(post("/companies") .content(new ObjectMapper().writeValueAsString(company))
+//		this.mockMvc.perform(post("/companies") .content(new ObjectMapper().writeValueAsString(company))
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.accept(MediaType.APPLICATION_JSON))
+//				.andExpect(status().isCreated());
+		this.mockMvc.perform(post("/employees") .content(jsonObject.toString())
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated());
